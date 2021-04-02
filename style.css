@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+}
+.game{
+    width: 809px;
+    height: 809px;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap:wrap;
+    margin: 0 auto;
+    
+}
+.sqw{
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    font-size: 70px;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+}
