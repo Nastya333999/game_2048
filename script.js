@@ -50,6 +50,12 @@ function getRandomPosition (){
 
 // console.log(allNumbersSqwId)
 
+function newGame (){
+    values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    values[getRandomPosition()] = getRandonValue(); 
+    values[getRandomPosition()] = getRandonValue(); 
+    displayGameValues();
+}
 
 let bottom = document.querySelector('#bottom');
 bottom.onclick = moveDown;
@@ -60,108 +66,66 @@ function numersNotZero (num){
 }
 
 function moveDown (){
-    console.log(values)
     for ( let i = 0; i <4; i++){
-        
-        let num1 = values[i];
-        let num2 = values[i+4];
-        let num3 = values[i+8];
-        let num4 = values[i+12];
 
-        let verticalRow = [num1, num2, num3, num4]; // массив вертикальных чисе
-        let numbers = verticalRow.filter(numersNotZero) // массив чисел по вертикальной линии больше 0
+        // массив вертикальных чисел
+        let verticalRow = [values[i], values[i+4], values[i+8], values[i+12]];
 
-        let zeroNumer = 4 - numbers.length; // выводим кол-во нулей. = 4 клетки - кол-во чисел
+        // массив чисел по вертикальной линии больше 0
+        let numbers = verticalRow.filter(numersNotZero); 
+
+        // выводим кол-во нулей. = 4 клетки - кол-во чисел
+        let zeroNumer = 4 - numbers.length; 
         let zerrosArray = Array(zeroNumer).fill(0);
         
         // делаем правильный массив со сдвигом чисел вниз 
         let correctVerticalRow = zerrosArray.concat(numbers)
 
-        values[i] = correctVerticalRow[0];
-        values[i+4]  = correctVerticalRow[1];
-        values[i+8]  = correctVerticalRow[2];
-        values[i+12]  = correctVerticalRow[3];
-        
-        
-        
-        // console.log(numbers)
+        for ( let j = 0 ; j <4; j++){
+            values[i+j*4] = correctVerticalRow[j]
+        }
     }
     displayGameValues();
-    console.log(values)
-        // let num1 = values[0];
-        // let num2 = values[4];
-        // let num3 = values[8];
-        // let num4 = values[12];
-
-        // let verticalRow = [num1, num2, num3, num4]; // массив вертикальных чисе
-        // let numbers = verticalRow.filter(numersNotZero) // массив чисел по вертикальной линии больше 0
-
-        // let zeroNumer = 4 - numbers.length; // выводим кол-во нулей. = 4 клетки - кол-во чисел
-        // let zerrosArray = Array(zeroNumer).fill(0);
-        
-        // // делаем правильный массив со сдвигом чисел вниз 
-        // let correctVerticalRow = zerrosArray.concat(numbers)
-        
-        // allNumbersSqwId[0].innerHTML = correctVerticalRow[0].toString();
-        // allNumbersSqwId[4].innerHTML  = correctVerticalRow[1].toString();
-        // allNumbersSqwId[8].innerHTML  = correctVerticalRow[2].toString();
-        // allNumbersSqwId[12].innerHTML  = correctVerticalRow[3].toString();
-
-        // console.log(correctVerticalRow)
-        // console.log(values[0])
-        // console.log(values[4])
-        // console.log(values[8])
-        // console.log(values[12])
-        
 }
 
+let tops = document.querySelector('#tops');
+tops.onclick = moveTop;
 
-
+function moveTop(){
+    for ( let i = 0; i < 4; i++){
+        let verticalRow = [values[i], values[i+4], values[i+8], values[i+12]]; 
+        let numbers = verticalRow.filter(numersNotZero); 
+        let zeroNumer = 4 - numbers.length; 
+        let zerrosArray = Array(zeroNumer).fill(0);
+        let correctVerticalRow = numbers.concat(zerrosArray); 
+        for ( let j = 0 ; j <4; j++){
+            values[i+j*4] = correctVerticalRow[j]
+        }
         
-
-
-function newGame (){
-    values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    values[getRandomPosition()] = getRandonValue(); 
-    values[getRandomPosition()] = getRandonValue(); 
+    }
     displayGameValues();
 }
+
+// let left = document.querySelector('#left');
+// left.onclick = moveLeft;
+
+// function moveLeft(){
+//     for ( let i = 0; i < 4; i++){
+//         let gorizontalRow = [ values[i], values[i+1], values[i+2], values[i+3]]; 
+//         let numbers = gorizontalRow.filter(numersNotZero);
+//         let zeroNumer = 4 - numbers.length; 
+//         let zerrosArray = Array(zeroNumer).fill(0);
+//         let correctGorisontalRow = numbers.concat(zerrosArray); 
+        
+
+//     }
+//     displayGameValues();
+// }
 
 
 
 // функция, которая при клике на кнопку вниз, которая сдвигает блоки вниз
 // функция, которая проверяет при клике вниз, если цифры равны, то складывает 
-
-// values.reverse();
-
-
-
-
-
-// for ( i = 0; i = arr.length; i++){
-//     if ( i % 4 === 4 || i % 4 === 5){
-//         console.log(arrrrr)
-//     }
-    
-// }
-
-//     let arr = [1,2,3,4,1,2,3,4]; 
-
-// let num1 = arr [0]; 
-// let num2 = arr [1]; 
-// let num3 = arr [2]; 
-// let num4 = arr [3]; 
-// let num5 = arr [4]; 
-// let num6 = arr [5]; 
-// let num7 = arr [6]; 
-// let num8 = arr [7]; 
-
-
-
-//     if ( num1 == num4 ){
-//         console.log("yes")
-//     }
-    
 
 
 
