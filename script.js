@@ -13,9 +13,10 @@ function getRandonValue() {
   let randomValue = Math.floor(Math.random() * 100);
   if (randomValue < 90) {
     return 2;
-  } else {
-    return 4;
-  }
+  } 
+//   else {
+//     return 2;
+//   }
 }
 
 let btnNewGame = document.querySelector("#new_game");
