@@ -1,6 +1,7 @@
 let game = document.querySelector(".game");
 let sqw = document.querySelector(".sqw");
-let result = document.querySelector(".result");
+let result = document.querySelector("#result");
+
 
 let allNumbersSqwId = [];
 for (let i = 1; i <= 16; i++) {
@@ -13,15 +14,30 @@ function getRandonValue() {
   let randomValue = Math.floor(Math.random() * 100);
   if (randomValue < 90) {
     return 2;
-  } 
+  }
   else {
-    return 2;
+    return 4;
   }
 }
 
 let btnNewGame = document.querySelector("#new_game");
-
 btnNewGame.onclick = newGame;
+
+// let left = document.querySelector("#left");
+// left.onclick = moveLeft;
+
+// let bottom = document.querySelector("#bottom");
+// bottom.onclick = moveDown;
+
+// let tops = document.querySelector("#tops");
+// tops.onclick = moveTop;
+
+// let right = document.querySelector("#right");
+// right.onclick = moveRight;
+
+
+
+
 
 function displayGameValues() {
   for (let i = 0; i < 16; i++) {
@@ -46,7 +62,6 @@ function getRandomPosition() {
   return newValueIndex;
 }
 
-// console.log(allNumbersSqwId)
 
 function newGame() {
   values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -55,15 +70,12 @@ function newGame() {
   displayGameValues();
 }
 
-let bottom = document.querySelector("#bottom");
-bottom.onclick = moveDown;
 
 function numersNotZero(num) {
   return num > 0;
 }
 
-function moveDown() {
-    sumCol()
+function moveToDown() {
   for (let i = 0; i < 4; i++) {
     // массив вертикальных чисел
     let verticalRow = [values[i], values[i + 4], values[i + 8], values[i + 12]];
@@ -82,17 +94,10 @@ function moveDown() {
       values[i + j * 4] = correctVerticalRow[j];
     }
   }
-  values[getRandomPosition()] = getRandonValue();
-  values[getRandomPosition()] = getRandonValue();
-
-  displayGameValues();
 }
 
-let tops = document.querySelector("#tops");
-tops.onclick = moveTop;
 
-function moveTop() {
-    sumCol()
+function moveToTop() {
   for (let i = 0; i < 4; i++) {
     let verticalRow = [values[i], values[i + 4], values[i + 8], values[i + 12]];
     let numbers = verticalRow.filter(numersNotZero);
@@ -103,18 +108,10 @@ function moveTop() {
       values[i + j * 4] = correctVerticalRow[j];
     }
   }
-  values[getRandomPosition()] = getRandonValue();
-  values[getRandomPosition()] = getRandonValue();
-
-  displayGameValues();
 }
 
-let left = document.querySelector("#left");
-left.onclick = moveLeft;
 
-function moveLeft() {
-    sumRow()
-
+function moveToLeft() {
   for (let i = 0; i < 16; i++) {
     if (i % 4 === 0) {
       let gorizontalRow = [
@@ -132,18 +129,10 @@ function moveLeft() {
       }
     }
   }
-  values[getRandomPosition()] = getRandonValue();
-  values[getRandomPosition()] = getRandonValue();
-
-  displayGameValues();
 }
 
-let right = document.querySelector("#right");
-right.onclick = moveRight;
 
-function moveRight() {
-    sumRow()
-
+function moveToRight() {
   for (let i = 0; i < 16; i++) {
     if (i % 4 === 0) {
       let gorizontalRow = [
@@ -161,29 +150,79 @@ function moveRight() {
       }
     }
   }
-  values[getRandomPosition()] = getRandonValue();
-  values[getRandomPosition()] = getRandonValue();
-
-  displayGameValues();
 }
 function sumRow() {
-    for (let i =0; i < 16; i++) {
-      if (values[i] === values[i +1]) {
-        let sumTotal = values[i] + values[i +1]
-        values[i] = sumTotal
-        values[i +1] = 0
-      }
+  for (let i = 0; i < 16; i++) {
+    if (values[i] === values[i + 1]) {
+      let sumTotal = values[i] + values[i + 1]
+      values[i] = sumTotal
+      values[i + 1] = 0;
+      result.innerHTML += sumTotal
+      
     }
   }
+}
 function sumCol() {
-    for (let i =0; i < 16; i++) {
-      if (values[i] === values[i +4]) {
-        let sumTotal = values[i] + values[i +4]
-        values[i] = sumTotal
-        values[i +4] = 0
-      }
+  for (let i = 0; i < 16; i++) {
+    if (values[i] === values[i + 4]) {
+      let sumTotal = values[i] + values[i + 4]
+      values[i] = sumTotal
+      values[i + 4] = 0;
+      result.innerHTML += sumTotal
+
     }
   }
+}
+
+window.onkeydown = function move() {
+  if (event.keyCode === 37) {
+    moveLeft();
+  };
+  if (event.keyCode === 38) {
+    moveTop();
+  };
+  if (event.keyCode === 39) {
+    moveRight();
+  };
+  if (event.keyCode === 40) {
+    moveDown();
+  };
+}
+
+function moveTop() {
+  moveToTop();
+  sumCol();
+  moveToTop();
+  values[getRandomPosition()] = getRandonValue();
+  displayGameValues();
+}
+function moveLeft() {
+  moveToLeft();
+  sumRow();
+  moveToLeft();
+  values[getRandomPosition()] = getRandonValue();
+  displayGameValues();
+
+}
+function moveRight() {
+  moveToRight();
+  sumRow();
+  moveToRight();
+  values[getRandomPosition()] = getRandonValue();
+  displayGameValues();
+
+}
+function moveDown() {
+  moveToDown();
+  sumCol();
+  moveToDown();
+  values[getRandomPosition()] = getRandonValue();
+  displayGameValues();
+
+}
+
+
+
 
 // функция, которая при клике на кнопку вниз, которая сдвигает блоки вниз
 // функция, которая проверяет при клике вниз, если цифры равны, то складывает

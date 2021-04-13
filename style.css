@@ -17,5 +17,5 @@ body{
     font-size: 70px;
     display: flex;
     justify-content: center;
-    vertical-align: middle;
+    align-items: center;
 }
